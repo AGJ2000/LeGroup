@@ -35,10 +35,10 @@ $env:NAME="Anna"; go run .\client
 classDiagram
 direction LR
 
-class server <<entrypoint>>
-class client <<entrypoint>>
-class proto_gRPC <<proto>>
-class grpc_runtime <<library>>
+class server
+class client
+class proto_gRPC
+class grpc_runtime
 
 server --> proto_gRPC : implements ChitChatServer
 server ..> grpc_runtime : server runtime
