@@ -1,0 +1,11 @@
+ChitChat server is starting...
+Server is listening on 127.0.0.1:50051
+Participant Anna joined with ID 0 at 1
+Participant 0 subscribed (epoch: 1) at logical time 1
+Participant Bo joined with ID 1 at 2
+Participant 1 subscribed (epoch: 1) at logical time 2
+Participant Cara joined with ID 2 at 3
+Participant 2 subscribed (epoch: 1) at logical time 3
+Participant 2 disconnected (epoch 1)
+Participant 0 disconnected (epoch 1)
+Participant 1 disconnected (epoch 1)

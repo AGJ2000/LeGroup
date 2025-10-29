@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package chitchat;
+
+option go_package = "github.com/andersgrangaard/ChitChat/gRPC;chitchat";
+
+// The core chat service
+service ChitChat {
+  rpc Join (JoinRequest) returns (JoinAck);
+  rpc Subscribe (SubscribeRequest) returns (stream Broadcast);
+  rpc Publish (PublishRequest) returns (PublishAck);
+  rpc Leave (LeaveRequest) returns (LeaveAck);
+}
+
+// ==== Messages ====
+
+message JoinRequest {
+  string desired_name = 1;
+}
+
+message JoinAck {
+  string participant_id = 1;
+  string effective_name = 2;
+  uint64 logical_time = 3;
+}
+
+message SubscribeRequest {
+  string participant_id = 1;
+}
+
+message PublishRequest {
+  string participant_id = 1;
+  string content = 2;
+  uint64 client_time = 3;
+}
+
+message PublishAck {
+  uint64 logical_time = 1;
+}
+
+message LeaveRequest {
+  string participant_id = 1;
+}
+
+message LeaveAck {
+  uint64 logical_time = 1;
+}
+
+message Broadcast {
+  uint64 logical_time = 1;
+  enum Type {
+    UNKNOWN = 0;
+    MESSAGE = 1;
+    JOIN = 2;
+    LEAVE = 3;
+  }
+
+  Type type = 1;
+  string participant_id = 2;
+  string name = 3;
+  string content = 4;
+  uint64 logical_time = 5;
+}
