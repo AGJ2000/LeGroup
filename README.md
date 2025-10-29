@@ -1,4 +1,4 @@
-# ChitChat gRPC
+# ChitChat gRPC 
 
 **Course:** Distributed Systems — IT University of Copenhagen  
 **Authors:** Anders Grangaard Jensen · Mathias Vestergaard Djurhuus · Theodor Monberg
