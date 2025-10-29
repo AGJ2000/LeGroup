@@ -1,30 +1,31 @@
 # ChitChat gRPC
-README was AI generated 
 
-🗨️ ChitChat – Distributed gRPC Chat System
+**Course:** Distributed Systems — IT University of Copenhagen  
+**Authors:** Anders Grangaard · Mathias Vestergaard Djurhuus · Theodor Monberg
 
-Course: Distributed Systems – IT University of Copenhagen
-Author: Anders Grangaard, Mathias Vestergaard Djurhuus, Theodor Monberg
-Language: Go (v1.21+)
-Framework: gRPC, Protocol Buffers
+## How to run
 
-⸻
+> Prerequisites: Go **1.21+**
 
-⚙️ Build & Run Instructions 
-
-1️⃣  Build the server
-
+### 1) Build the server
+```bash
 go build -o chitchat-server ./server
+```
 
-2️⃣ Start the server
+### 2) Start the server
+```bash
+./chitchat-server
+```
+(Default bind: `127.0.0.1:50051`.)
 
-./chitchat-server | tee demo-logs/server.log
+### 3) Start one or more clients (each in its own terminal)
+```bash
+NAME=Anna go run ./client
+NAME=Bo   go run ./client
+NAME=Cara go run ./client
+```
 
-(Using tee will store a server.log file with all runtime logs)
-
-3️⃣ Start multiple clients
-
-In separate terminals:
-NAME=Anna go run ./client | tee demo-logs/client-anna.log
-NAME=Bo go run ./client   | tee demo-logs/client-bo.log
-NAME=Cara go run ./client | tee demo-logs/client-cara.log
+**Windows (PowerShell)**
+```powershell
+$env:NAME="Anna"; go run .\client
+```
