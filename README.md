@@ -35,30 +35,49 @@ $env:NAME="Anna"; go run .\client
 classDiagram
 direction LR
 
-class ServerPkg {
-  <<entrypoint>>
+class ServerFolder as "server/" {
+  <<directory>>
+  main.go
+  chitchat-server (binary)
+}
+
+class ClientFolder as "client/" {
+  <<directory>>
   main.go
 }
 
-class ClientPkg {
-  <<entrypoint>>
-  main.go
-}
-
-class ProtoPkg {
+class GRPCFolder as "gRPC/" {
   <<proto>>
   chitchat.proto
   chitchat.pb.go
   chitchat_grpc.pb.go
 }
 
-class GrpcRuntime {
-  <<library>>
+class DemoLogs as "demo-logs/" {
+  <<logs>>
+  client-anna.term.log
+  client-bo.term.log
+  client-cara.term.log
+  server.log
 }
 
-ServerPkg --> ProtoPkg : uses stubs
-ClientPkg --> ProtoPkg : uses stubs
+class LogsFolder as "logs/" {
+  <<logs>>
+  0.log
+  1.log
+  2.log
+}
 
-ProtoPkg ..> GrpcRuntime : generated against gRPC
-ServerPkg ..> GrpcRuntime : server runtime
-ClientPkg ..> GrpcRuntime : client runtime
+class GrpcRuntime {
+  <<library>>
+  google.golang.org/grpc
+  status/codes
+}
+
+%% Relationships
+ServerFolder --> GRPCFolder : uses stubs
+ClientFolder --> GRPCFolder : uses stubs
+
+GRPCFolder ..> GrpcRuntime : generated against gRPC
+ServerFolder ..> GrpcRuntime : server runtime
+ClientFolder ..> GrpcRuntime : client runtime
