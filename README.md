@@ -29,45 +29,50 @@ NAME=Cara go run ./client
 ```powershell
 $env:NAME="Anna"; go run .\client
 ```
-## 4) Repository Structure (Relationships-only UML)
+## 🗂️ ChitChat gRPC-arkitektur
 
 ```mermaid
-classDiagram
-direction LR
+flowchart LR
 
-class server {
-  main.go
-  chitchat-server (binary)
-}
+  %% Server
+  subgraph S["server"]
+    direction TB
+    S1["main.go"]
+    S2["chitchat-server (binary)"]
+  end
 
-class client {
-  main.go
-}
+  %% Client
+  subgraph C["client"]
+    direction TB
+    C1["main.go"]
+  end
 
-class GRPC {
-  chitchat.proto
-  chitchat.pb.go
-  chitchat_grpc.pb.go
-}
+  %% gRPC stubs / proto
+  subgraph G["gRPC"]
+    direction TB
+    G1["chitchat.proto"]
+    G2["chitchat.pb.go"]
+    G3["chitchat_grpc.pb.go"]
+  end
 
-class demo_logs {
-  client-anna.term.log
-  client-bo.term.log
-  client-cara.term.log
-  server.log
-}
+  %% Runtime (lib)
+  subgraph R["gRPC runtime"]
+    direction TB
+    R1["grpc_runtime"]
+  end
 
-class logs {
-  0.log
-  1.log
-  2.log
-}
+  %% Demo logs
+  subgraph L["demo_logs"]
+    direction TB
+    L1["client-anna.term.log"]
+    L2["client-bo.term.log"]
+    L3["client-cara.term.log"]
+    L4["server.log"]
+  end
 
-class grpc_runtime
-
-server --> GRPC : uses stubs
-client --> GRPC : uses stubs
-
-GRPC ..> grpc_runtime : generated against gRPC
-server ..> grpc_runtime : server runtime
-client ..> grpc_runtime : client runtime
+  %% Relations
+  S -->|uses stubs| G
+  C -->|uses stubs| G
+  G -->|generated against gRPC| R
+  S -.->|server runtime| R
+  C -.->|client runtime| R
