@@ -29,7 +29,7 @@ NAME=Cara go run ./client
 ```powershell
 $env:NAME="Anna"; go run .\client
 ```
-## 🗂️ ChitChat gRPC-arkitektur
+## ChitChat gRPC-arkitektur
 
 ```mermaid
 flowchart LR
