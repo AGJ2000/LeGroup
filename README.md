@@ -35,26 +35,30 @@ $env:NAME="Anna"; go run .\client
 classDiagram
 direction LR
 
-%% === Groups (folders) ===
-namespace server {
-  class server_main as "main.go"
+class ServerPkg {
+  <<entrypoint>>
+  main.go
 }
 
-namespace client {
-  class client_main as "main.go"
+class ClientPkg {
+  <<entrypoint>>
+  main.go
 }
 
-namespace gRPC {
-  class proto_file as "chitchat.proto"
-  class proto_pb as "chitchat.pb.go"
-  class proto_grpc as "chitchat_grpc.pb.go"
+class ProtoPkg {
+  <<proto>>
+  chitchat.proto
+  chitchat.pb.go
+  chitchat_grpc.pb.go
 }
 
-class grpc_runtime
+class GrpcRuntime {
+  <<library>>
+}
 
-%% === Relationships ===
-server_main --> proto_grpc : imports / uses stubs
-client_main --> proto_grpc : imports / uses stubs
+ServerPkg --> ProtoPkg : uses stubs
+ClientPkg --> ProtoPkg : uses stubs
 
-proto_grpc ..> grpc_runtime : gRPC runtime
-proto_pb ..> grpc_runtime : protobuf runtime
+ProtoPkg ..> GrpcRuntime : generated against gRPC
+ServerPkg ..> GrpcRuntime : server runtime
+ClientPkg ..> GrpcRuntime : client runtime
