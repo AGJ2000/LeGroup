@@ -29,3 +29,21 @@ NAME=Cara go run ./client
 ```powershell
 $env:NAME="Anna"; go run .\client
 ```
+## 4) Repository Structure (Relationships-only UML)
+
+```mermaid
+classDiagram
+direction LR
+
+class server <<entrypoint>>
+class client <<entrypoint>>
+class proto_gRPC <<proto>>
+class grpc_runtime <<library>>
+
+server --> proto_gRPC : implements ChitChatServer
+server ..> grpc_runtime : server runtime
+
+client --> proto_gRPC : uses stubs
+client ..> grpc_runtime : client runtime
+
+proto_gRPC ..> grpc_runtime : generated against gRPC
